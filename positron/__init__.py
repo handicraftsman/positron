@@ -46,6 +46,7 @@ class Logger:
             self.file = None
           self.file = open(self.directory + '/' + new_filename, 'a')
         self.file.write(self.format(message, level, dt, False) + '\n')
+        self.file.flush()
     self.mutex.release()
 
   def format(self, message, level, dt, colored):
