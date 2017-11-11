@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
   name = 'positron',
-  version = '0.1.2',
+  version = '0.1.3',
   description = 'A simple logger for Python',
 
   author = 'Nickolay Ilyushin',
