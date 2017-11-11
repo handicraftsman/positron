@@ -1,5 +1,6 @@
 from enum import IntEnum
 from datetime import datetime
+from threading import Lock
 
 class LogLevel(IntEnum):
   DEBUG     = 0
@@ -21,6 +22,7 @@ class Logger:
     self.filename = ''
     self.file = None
     self.iochars = ' IO'
+    self.mutex = Lock()
 
   def enable_file_logging(self, directory = './', prefix = 'log'):
     self.directory = directory
@@ -31,6 +33,7 @@ class Logger:
     self.should_log_to_files = False
 
   def write(self, message, level = LogLevel.INFO):
+    self.mutex.acquire()
     if level >= main_level:
       dt = datetime.now()
       print(self.format(message, level, dt, True))
@@ -43,6 +46,7 @@ class Logger:
             self.file = None
           self.file = open(self.directory + '/' + new_filename, 'a')
         self.file.write(self.format(message, level, dt, False) + '\n')
+    self.mutex.release()
 
   def format(self, message, level, dt, colored):
     l = {'color': '',         'chars': 'UNK'}
