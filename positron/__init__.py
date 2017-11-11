@@ -12,6 +12,7 @@ class LogLevel(IntEnum):
   CRITICAL  = 6
 
 main_level = LogLevel.INFO
+main_file_level = LogLevel.WARNING
 
 class Logger:
   def __init__(self, name = '', level = LogLevel.INFO):
@@ -37,6 +38,7 @@ class Logger:
     if level >= main_level:
       dt = datetime.now()
       print(self.format(message, level, dt, True))
+    if level >= main_file_level:
       new_filename = dt.strftime(self.prefix + '-%d.%m.%Y.log')
       if self.should_log_to_files:
         if self.filename != new_filename:
