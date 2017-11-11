@@ -1,0 +1,6 @@
+run.sh
+build
+dist
+positron.egg-info
+*.log
+positron/__pycache__
